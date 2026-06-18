@@ -1,0 +1,56 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.modal {
+  width: 500px;
+  max-width: 90vw;
+
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 16px;
+
+  label {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  input,
+  textarea,
+  select {
+    padding: 10px;
+  }
+}
+
+.coordinates {
+  display: flex;
+  gap: 16px;
+
+  margin-bottom: 20px;
+
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

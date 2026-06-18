@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import styles from "./IncidentMap.module.scss";
-import { useIncidentStore } from "@/store/incidents.store";
 
-mapboxgl.accessToken =
-  process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
+import { useIncidentStore } from "@/store/incidents.store";
+import CreateIncidentModal from "../CreateIncidentModal/CreateIncidentModal";
+
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 function getMarkerColor(priority: string) {
   switch (priority) {
@@ -28,9 +29,18 @@ export default function IncidentMap() {
 
   const markersRef = useRef<mapboxgl.Marker[]>([]);
 
-  const incidents = useIncidentStore(
-    (state) => state.incidents
-  );
+  const [isCreating, setIsCreating] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedCoordinates, setSelectedCoordinates] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+
+  const incidents = useIncidentStore((state) => state.incidents);
+
+  const addIncident = useIncidentStore((state) => state.addIncident);
 
   useEffect(() => {
     if (!mapContainer.current) return;
@@ -52,9 +62,8 @@ export default function IncidentMap() {
   useEffect(() => {
     if (!mapRef.current) return;
 
-    markersRef.current.forEach((marker) =>
-      marker.remove()
-    );
+    markersRef.current.forEach((marker) => marker.remove());
+
     markersRef.current = [];
 
     incidents.forEach((incident) => {
@@ -64,29 +73,32 @@ export default function IncidentMap() {
       el.style.height = "14px";
       el.style.borderRadius = "50%";
       el.style.cursor = "pointer";
-      el.style.backgroundColor = getMarkerColor(
-        incident.priority
-      );
+      el.style.backgroundColor = getMarkerColor(incident.priority);
 
       const popup = new mapboxgl.Popup({
         offset: 25,
       }).setHTML(`
-        <div style="min-width:180px">
+        <div style="min-width:200px">
           <strong>${incident.title}</strong>
-          <p style="margin:4px 0;">
-            ${incident.locationDescription ?? ""}
+
+          <p style="margin:8px 0;">
+            ${incident.locationDescription ?? "Sin ubicación"}
           </p>
+
           <small>
-            Priority: ${incident.priority}
+            Prioridad: ${incident.priority}
+          </small>
+
+          <br />
+
+          <small>
+            Estado: ${incident.status}
           </small>
         </div>
       `);
 
       const marker = new mapboxgl.Marker(el)
-        .setLngLat([
-          incident.coordinates.lng,
-          incident.coordinates.lat,
-        ])
+        .setLngLat([incident.coordinates.lng, incident.coordinates.lat])
         .setPopup(popup)
         .addTo(mapRef.current!);
 
@@ -94,7 +106,87 @@ export default function IncidentMap() {
     });
   }, [incidents]);
 
+  useEffect(() => {
+    if (!mapRef.current) return;
+
+    const handleMapClick = (e: mapboxgl.MapMouseEvent) => {
+      if (!isCreating) return;
+
+      const { lat, lng } = e.lngLat;
+
+      setSelectedCoordinates({
+        lat,
+        lng,
+      });
+
+      setIsModalOpen(true);
+      setIsCreating(false);
+    };
+
+    mapRef.current.on("click", handleMapClick);
+
+    return () => {
+      mapRef.current?.off("click", handleMapClick);
+    };
+  }, [isCreating]);
+
   return (
-    <div ref={mapContainer} className={styles.map} />
+    <div
+      style={{
+        position: "relative",
+      }}
+    >
+      <button
+        onClick={() => setIsCreating(true)}
+        style={{
+          position: "absolute",
+          top: 16,
+          right: 16,
+          zIndex: 10,
+
+          padding: "10px 16px",
+
+          border: "none",
+          borderRadius: "8px",
+
+          background: "#111",
+          color: "#fff",
+
+          cursor: "pointer",
+        }}
+      >
+        {isCreating ? "Selecciona un punto..." : "+ Crear incidencia"}
+      </button>
+
+      <div ref={mapContainer} className={styles.map} />
+
+      <CreateIncidentModal
+        isOpen={isModalOpen}
+        coordinates={selectedCoordinates}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+        onSubmit={(data) => {
+          if (!selectedCoordinates) return;
+
+          addIncident({
+            title: data.title,
+            description: data.description,
+            priority: data.priority,
+
+            status: "open",
+
+            coordinates: {
+              lat: selectedCoordinates.lat,
+              lng: selectedCoordinates.lng,
+            },
+
+            locationDescription: "",
+          } as any);
+
+          setSelectedCoordinates(null);
+        }}
+      />
+    </div>
   );
 }

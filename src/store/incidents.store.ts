@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 interface IncidentStore {
   incidents: Incident[];
-  addIncident: (incident: Incident) => void;
+  addIncident: (incident: Omit<Incident, "id">) => void;
   setIncidents: (incidents: Incident[]) => void;
 }
 
@@ -12,7 +12,13 @@ export const useIncidentStore = create<IncidentStore>((set) => ({
 
   addIncident: (incident) =>
     set((state) => ({
-      incidents: [...state.incidents, incident],
+      incidents: [
+        {
+          ...incident,
+          id: crypto.randomUUID(),
+        },
+        ...state.incidents,
+      ],
     })),
 
   setIncidents: (incidents) =>
