@@ -1,8 +1,20 @@
+"use client";
+
+import { useEffect } from "react";
+
 import IncidentMap from "@/components/IncidentMap/IncidentMap";
-import incidents from "@/data/incidents.mock.json";
+
+import incidentsData from "@/data/incidents.mock.json";
+
+import { useIncidentStore } from "@/store/incidents.store";
 
 export default function Home() {
-  return (
-    <IncidentMap incidents={incidents} />
-  );
+  const setIncidents =
+    useIncidentStore((state) => state.setIncidents);
+
+  useEffect(() => {
+    setIncidents(incidentsData);
+  }, [setIncidents]);
+
+  return <IncidentMap />;
 }

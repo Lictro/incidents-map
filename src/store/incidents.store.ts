@@ -1,13 +1,5 @@
+import { Incident } from "@/types/incident";
 import { create } from "zustand";
-
-export interface Incident {
-  id: string;
-  title: string;
-  description: string;
-  latitude: number;
-  longitude: number;
-  severity: "low" | "medium" | "high";
-}
 
 interface IncidentStore {
   incidents: Incident[];
