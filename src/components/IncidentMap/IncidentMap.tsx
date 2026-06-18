@@ -124,6 +124,8 @@ export default function IncidentMap() {
     };
 
     mapRef.current.on("click", handleMapClick);
+    mapRef.current.getCanvas().style.cursor =
+    isCreating ? "crosshair" : "";
 
     return () => {
       mapRef.current?.off("click", handleMapClick);
