@@ -1,5 +1,8 @@
 import IncidentMap from "@/components/IncidentMap/IncidentMap";
+import incidents from "@/data/incidents.mock.json";
 
 export default function Home() {
-  return <IncidentMap />;
+  return (
+    <IncidentMap incidents={incidents} />
+  );
 }
