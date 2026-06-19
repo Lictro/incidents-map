@@ -12,6 +12,20 @@ export default function RecentIssuesTable({ incidents }: Props) {
     )
     .slice(0, 5);
 
+  
+  const statusText = (status: string) => {
+    switch (status) {
+      case "open":
+        return "Abierta";
+      case "closed":
+        return "Cerrada";
+      case "on_pause":
+        return "En Pausa";
+      default:
+        return status;
+    }
+  }
+
   return (
     <div className={`${styles.card} surface-card`}>
       <div className={styles.header}>
@@ -48,7 +62,7 @@ export default function RecentIssuesTable({ incidents }: Props) {
                       styles[incident.status] ?? ""
                     }`}
                   >
-                    {incident.status}
+                    {statusText(incident.status)}
                   </span>
                 </td>
               </tr>
