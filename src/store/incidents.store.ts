@@ -17,6 +17,9 @@ export const useIncidentStore = create<IncidentStore>((set) => ({
         {
           ...incident,
           id: crypto.randomUUID(),
+          sequenceId: String(
+            state.incidents.length + 1
+          ).padStart(4, "0")
         },
         ...state.incidents,
       ],
