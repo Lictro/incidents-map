@@ -14,6 +14,7 @@ import {
 } from "@/lib/dashboard";
 
 import styles from "./page.module.scss";
+import TopAssignees from "@/components/Dashboard/TopAssignees/TopAssignees";
 
 export default function DashboardPage() {
   const incidents = useIncidentStore(
@@ -79,7 +80,7 @@ export default function DashboardPage() {
           incidents={incidents}
         />
 
-        <IssueTypes
+        <TopAssignees
           incidents={incidents}
         />
       </div>
