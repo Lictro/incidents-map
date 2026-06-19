@@ -163,7 +163,7 @@ export default function IncidentMap() {
             title: data.title,
             description: data.description,
             priority: data.priority,
-            status: "open",
+            status: data.status,
             coordinates: {
               lat: selectedCoordinates.lat,
               lng: selectedCoordinates.lng,
