@@ -4,14 +4,11 @@ interface Props {
   incidents: any[];
 }
 
-export default function RecentIssuesTable({
-  incidents,
-}: Props) {
+export default function RecentIssuesTable({ incidents }: Props) {
   const recent = [...incidents]
     .sort(
       (a, b) =>
-        new Date(b.createdAt).getTime() -
-        new Date(a.createdAt).getTime()
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     )
     .slice(0, 5);
 

@@ -37,7 +37,7 @@ export default function IncidentMap() {
     lng: number;
   } | null>(null);
 
-  const incidents = useIncidentStore((state) => state.incidents);
+  const incidents = useIncidentStore((s) => s.incidents);
   const addIncident = useIncidentStore((state) => state.addIncident);
 
   useEffect(() => {
@@ -65,9 +65,7 @@ export default function IncidentMap() {
     incidents.forEach((incident) => {
       const el = document.createElement("div");
       el.className = styles.marker;
-      el.style.backgroundColor = getMarkerColor(
-        incident.priority
-      );
+      el.style.backgroundColor = getMarkerColor(incident.priority);
 
       const popup = new mapboxgl.Popup({
         offset: 24,
@@ -88,10 +86,7 @@ export default function IncidentMap() {
       `);
 
       const marker = new mapboxgl.Marker(el)
-        .setLngLat([
-          incident.coordinates.lng,
-          incident.coordinates.lat,
-        ])
+        .setLngLat([incident.coordinates.lng, incident.coordinates.lat])
         .setPopup(popup)
         .addTo(mapRef.current!);
 
@@ -112,8 +107,7 @@ export default function IncidentMap() {
     };
 
     mapRef.current.on("click", handleMapClick);
-    mapRef.current.getCanvas().style.cursor =
-      isCreating ? "crosshair" : "";
+    mapRef.current.getCanvas().style.cursor = isCreating ? "crosshair" : "";
 
     return () => {
       mapRef.current?.off("click", handleMapClick);
@@ -135,9 +129,7 @@ export default function IncidentMap() {
               <span className={`${styles.legendItem} ${styles.medium}`}>
                 Media
               </span>
-              <span className={`${styles.legendItem} ${styles.low}`}>
-                Baja
-              </span>
+              <span className={`${styles.legendItem} ${styles.low}`}>Baja</span>
             </div>
           </div>
         </div>
@@ -146,8 +138,14 @@ export default function IncidentMap() {
           onClick={() => setIsCreating(true)}
           className={`${styles.floatingButton} button button-primary`}
         >
-          
-          {isCreating ? "Selecciona un punto..." : <><PlusIcon size={20} />Crear Incidencia</>}
+          {isCreating ? (
+            "Selecciona un punto..."
+          ) : (
+            <>
+              <PlusIcon size={20} />
+              Crear Incidencia
+            </>
+          )}
         </button>
       </div>
 

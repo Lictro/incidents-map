@@ -4,9 +4,7 @@ interface Props {
   incidents: any[];
 }
 
-export default function IssueTypes({
-  incidents,
-}: Props) {
+export default function IssueTypes({ incidents }: Props) {
   const counts: Record<string, number> = {};
 
   incidents.forEach((incident) => {

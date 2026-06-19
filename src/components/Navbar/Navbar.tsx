@@ -18,9 +18,7 @@ export default function Navbar() {
       <div className={styles.brand}>
         <div className={styles.brandMark}>IM</div>
         <div className={styles.brandText}>
-          <span className={styles.brandName}>
-            Manejo de Incidentes
-          </span>
+          <span className={styles.brandName}>Manejo de Incidentes</span>
         </div>
       </div>
 
@@ -31,9 +29,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`${styles.link} ${
-                isActive ? styles.active : ""
-              }`}
+              className={`${styles.link} ${isActive ? styles.active : ""}`}
               aria-current={isActive ? "page" : undefined}
             >
               {item.label}

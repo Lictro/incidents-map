@@ -20,7 +20,7 @@
 
 .header {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
@@ -74,7 +74,9 @@
   background: var(--surface);
   padding: 14px 16px;
   color: var(--graphite);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 :global(input:focus),

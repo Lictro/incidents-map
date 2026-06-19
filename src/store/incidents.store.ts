@@ -1,5 +1,6 @@
 import { Incident } from "@/types/incident";
 import { create } from "zustand";
+import incidentsMock from "@/data/incidents.mock.json";
 
 interface IncidentStore {
   incidents: Incident[];
@@ -8,7 +9,7 @@ interface IncidentStore {
 }
 
 export const useIncidentStore = create<IncidentStore>((set) => ({
-  incidents: [],
+  incidents: incidentsMock as Incident[],
 
   addIncident: (incident) =>
     set((state) => ({

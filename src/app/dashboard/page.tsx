@@ -17,7 +17,7 @@ import styles from "./page.module.scss";
 import TopAssignees from "@/components/Dashboard/TopAssignees/TopAssignees";
 
 export default function DashboardPage() {
-  const incidents = useIncidentStore((state) => state.incidents);
+  const incidents = useIncidentStore((s) => s.incidents);
 
   const total = incidents.length;
   const open = incidents.filter((i) => i.status === "open").length;
@@ -26,56 +26,35 @@ export default function DashboardPage() {
   return (
     <main className={styles.container}>
       <div className={styles.stats}>
-        <StatCard
-          title="Incidencias Totales"
-          value={total}
-        />
+        <StatCard title="Incidencias Totales" value={total} />
 
-        <StatCard
-          title="Incidencias Abiertas"
-          value={open}
-        />
+        <StatCard title="Incidencias Abiertas" value={open} />
 
-        <StatCard
-          title="Incidencias Cerradas"
-          value={closed}
-        />
+        <StatCard title="Incidencias Cerradas" value={closed} />
 
         <StatCard
           title="Tasa de Aprobación"
-          value={`${calculateApprovalRate(
-            incidents
-          )}%`}
+          value={`${calculateApprovalRate(incidents)}%`}
         />
 
         <StatCard
           title="Tiempo Promedio de Resolución"
-          value={`${calculateAverageResolutionDays(
-            incidents
-          )} días`}
+          value={`${calculateAverageResolutionDays(incidents)} días`}
         />
 
         <StatCard
           title="Incidencias Atrasadas"
-          value={calculateOverdue(
-            incidents
-          )}
+          value={calculateOverdue(incidents)}
         />
       </div>
 
       <div className={styles.grid}>
-        <PriorityDistribution
-          incidents={incidents}
-        />
+        <PriorityDistribution incidents={incidents} />
 
-        <TopAssignees
-          incidents={incidents}
-        />
+        <TopAssignees incidents={incidents} />
       </div>
 
-      <RecentIssuesTable
-        incidents={incidents}
-      />
+      <RecentIssuesTable incidents={incidents} />
     </main>
   );
 }

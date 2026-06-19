@@ -48,12 +48,21 @@ export default function CreateIncidentModal({
 
   return (
     <div className={styles.overlay}>
-      <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="incident-modal-title">
+      <div
+        className={styles.modal}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="incident-modal-title"
+      >
         <div className={styles.header}>
           <div>
             <h2 id="incident-modal-title">Crear Incidencia</h2>
           </div>
-          <div onClick={onClose} className={styles.headerXButton} aria-label="Cerrar modal">
+          <div
+            onClick={onClose}
+            className={styles.headerXButton}
+            aria-label="Cerrar modal"
+          >
             <XIcon size={20} />
           </div>
         </div>
@@ -102,7 +111,11 @@ export default function CreateIncidentModal({
           </div>
 
           <div className={styles.actions}>
-            <button type="button" className="button button-secondary" onClick={onClose}>
+            <button
+              type="button"
+              className="button button-secondary"
+              onClick={onClose}
+            >
               Cancelar
             </button>
             <button type="submit" className="button button-primary">

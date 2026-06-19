@@ -5,10 +5,7 @@ interface Props {
   value: string | number;
 }
 
-export default function StatCard({
-  title,
-  value,
-}: Props) {
+export default function StatCard({ title, value }: Props) {
   return (
     <div className={`${styles.card} surface-card`}>
       <div className={styles.header}>

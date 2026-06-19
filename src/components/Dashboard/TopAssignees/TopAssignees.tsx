@@ -4,15 +4,12 @@ interface Props {
   incidents: any[];
 }
 
-export default function TopAssignees({
-  incidents,
-}: Props) {
+export default function TopAssignees({ incidents }: Props) {
   const assigneeCounts: Record<string, number> = {};
 
   incidents.forEach((incident) => {
     incident.assignees?.forEach((assignee: any) => {
-      assigneeCounts[assignee.name] =
-        (assigneeCounts[assignee.name] || 0) + 1;
+      assigneeCounts[assignee.name] = (assigneeCounts[assignee.name] || 0) + 1;
     });
   });
 
@@ -24,7 +21,9 @@ export default function TopAssignees({
     <div className={`${styles.card} surface-card`}>
       <div className={styles.header}>
         <h3>Asignados Principales</h3>
-        <p className={styles.subtitle}>Miembros del equipo con las incidencias más activas.</p>
+        <p className={styles.subtitle}>
+          Miembros del equipo con las incidencias más activas.
+        </p>
       </div>
 
       {topAssignees.length === 0 ? (
