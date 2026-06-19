@@ -67,6 +67,9 @@ export default function IncidentMap() {
       el.className = styles.marker;
       el.style.backgroundColor = getMarkerColor(incident.priority);
 
+      const priorityText = incident.priority === "high" ? "Alta" : incident.priority === "medium" ? "Media" : "Baja";
+      const statusText = incident.status === "open" ? "Abierta" : incident.status === "closed" ? "Cerrada" : "En Pausa";
+
       const popup = new mapboxgl.Popup({
         offset: 24,
         className: "incident-popup",
@@ -75,12 +78,12 @@ export default function IncidentMap() {
           <h4>${incident.title}</h4>
           <p>${incident.locationDescription ?? "Sin ubicación"}</p>
           <div class="map-popup__keys">
-            <span>Priority</span>
-            <strong>${incident.priority}</strong>
+            <span>Prioridad</span>
+            <strong>${priorityText}</strong>
           </div>
           <div class="map-popup__keys">
-            <span>Status</span>
-            <strong>${incident.status}</strong>
+            <span>Estado</span>
+            <strong>${statusText}</strong>
           </div>
         </div>
       `);

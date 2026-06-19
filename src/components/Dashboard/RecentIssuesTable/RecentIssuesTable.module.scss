@@ -1,6 +1,13 @@
 .card {
   padding: 24px;
   border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+:global(table) {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: collapse;
 }
 
 .header {
@@ -33,6 +40,7 @@
   text-align: left;
   padding: 14px 16px;
   border-bottom: 1px solid rgba(60, 55, 68, 0.08);
+  white-space: nowrap;
 }
 
 :global(th) {

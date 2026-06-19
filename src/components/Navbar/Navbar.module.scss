@@ -11,6 +11,38 @@
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(60, 55, 68, 0.08);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .navbar {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .links {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .link {
+    flex: 1 1 auto;
+    min-width: 110px;
+    text-align: center;
+    padding: 10px 14px;
+  }
+
+  .brandText {
+    min-width: 0;
+  }
+
+  .brandName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .brand {

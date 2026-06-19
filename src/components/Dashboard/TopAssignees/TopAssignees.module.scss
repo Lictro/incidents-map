@@ -34,6 +34,17 @@
   border-top: 1px solid rgba(60, 55, 68, 0.08);
 }
 
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 40px 1fr;
+    gap: 10px;
+  }
+
+  .count {
+    justify-self: start;
+  }
+}
+
 .row:first-child {
   border-top: none;
 }
