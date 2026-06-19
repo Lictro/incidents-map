@@ -1,0 +1,36 @@
+.navbar {
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+
+  background: var(--graphite);
+
+  color: white;
+
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.links {
+  display: flex;
+  gap: 24px;
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    transition: 0.2s;
+
+    &:hover {
+      color: var(--powder-blue);
+    }
+  }
+}

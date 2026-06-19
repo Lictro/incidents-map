@@ -1,0 +1,27 @@
+:root {
+  --graphite: #3c3744;
+  --navy-electric: #090c9b;
+  --smart-blue: #3066be;
+  --powder-blue: #b4c5e4;
+  --ivory: #fbfff1;
+
+  --shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--ivory);
+  color: var(--graphite);
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+}

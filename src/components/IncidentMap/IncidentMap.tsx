@@ -140,22 +140,7 @@ export default function IncidentMap() {
     >
       <button
         onClick={() => setIsCreating(true)}
-        style={{
-          position: "absolute",
-          top: 16,
-          right: 16,
-          zIndex: 10,
-
-          padding: "10px 16px",
-
-          border: "none",
-          borderRadius: "8px",
-
-          background: "#111",
-          color: "#fff",
-
-          cursor: "pointer",
-        }}
+        className={styles.createButton}
       >
         {isCreating ? "Selecciona un punto..." : "+ Crear incidencia"}
       </button>
