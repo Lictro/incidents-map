@@ -23,8 +23,8 @@ export default function TopAssignees({
   return (
     <div className={`${styles.card} surface-card`}>
       <div className={styles.header}>
-        <h3>Top Assignees</h3>
-        <p className={styles.subtitle}>Team members with the most active issues.</p>
+        <h3>Asignados Principales</h3>
+        <p className={styles.subtitle}>Miembros del equipo con las incidencias más activas.</p>
       </div>
 
       {topAssignees.length === 0 ? (

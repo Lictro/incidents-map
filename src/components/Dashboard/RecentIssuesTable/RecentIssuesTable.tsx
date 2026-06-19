@@ -19,24 +19,24 @@ export default function RecentIssuesTable({
     <div className={`${styles.card} surface-card`}>
       <div className={styles.header}>
         <div>
-          <h3>Recent Issues</h3>
+          <h3>Incidencias Recientes</h3>
           <p className={styles.subtitle}>
-            Latest issues reported across the job site.
+            Las últimas incidencias creadas en el sistema.
           </p>
         </div>
       </div>
 
       {recent.length === 0 ? (
         <div className={styles.emptyState}>
-          No recent incidents available.
+          No hay incidencias recientes disponibles.
         </div>
       ) : (
         <table className={styles.table}>
           <thead>
             <tr>
               <th>ID</th>
-              <th>Title</th>
-              <th>Status</th>
+              <th>Titulo</th>
+              <th>Estado</th>
             </tr>
           </thead>
 

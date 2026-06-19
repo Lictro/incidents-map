@@ -27,36 +27,36 @@ export default function DashboardPage() {
     <main className={styles.container}>
       <div className={styles.stats}>
         <StatCard
-          title="Total Issues"
+          title="Incidencias Totales"
           value={total}
         />
 
         <StatCard
-          title="Open Issues"
+          title="Incidencias Abiertas"
           value={open}
         />
 
         <StatCard
-          title="Closed Issues"
+          title="Incidencias Cerradas"
           value={closed}
         />
 
         <StatCard
-          title="Approval Rate"
+          title="Tasa de Aprobación"
           value={`${calculateApprovalRate(
             incidents
           )}%`}
         />
 
         <StatCard
-          title="Avg Resolution"
+          title="Tiempo Promedio de Resolución"
           value={`${calculateAverageResolutionDays(
             incidents
-          )} days`}
+          )} días`}
         />
 
         <StatCard
-          title="Overdue"
+          title="Incidencias Atrasadas"
           value={calculateOverdue(
             incidents
           )}

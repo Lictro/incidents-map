@@ -14,19 +14,19 @@ export default function PriorityDistribution({
   return (
     <div className={`${styles.card} surface-card`}>
       <div className={styles.header}>
-        <h3>Priority Distribution</h3>
-        <p className={styles.subtitle}>Severity split across active incidents.</p>
+        <h3>Distribución de Prioridad</h3>
+        <p className={styles.subtitle}>Distribución de gravedad entre las incidencias activas.</p>
       </div>
       <div className={styles.metric}>
-        <span>High</span>
+        <span>Alta</span>
         <strong>{high}</strong>
       </div>
       <div className={styles.metric}>
-        <span>Medium</span>
+        <span>Media</span>
         <strong>{medium}</strong>
       </div>
       <div className={styles.metric}>
-        <span>Low</span>
+        <span>Baja</span>
         <strong>{low}</strong>
       </div>
     </div>
