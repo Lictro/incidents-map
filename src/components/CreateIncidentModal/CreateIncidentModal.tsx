@@ -33,8 +33,16 @@ export default function CreateIncidentModal({
 
   if (!isOpen || !coordinates) return null;
 
+  const isFormValid =
+    title.trim().length > 0 &&
+    description.trim().length > 0 &&
+    priority &&
+    status;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isFormValid) return;
 
     onSubmit({
       title,
@@ -73,7 +81,9 @@ export default function CreateIncidentModal({
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
-            <label htmlFor="incident-title">Título</label>
+            <label htmlFor="incident-title">
+              Título <span className={styles.required}>*</span>
+            </label>
             <input
               id="incident-title"
               value={title}
@@ -84,7 +94,9 @@ export default function CreateIncidentModal({
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="incident-description">Descripción</label>
+            <label htmlFor="incident-description">
+              Descripción <span className={styles.required}>*</span>
+            </label>
             <textarea
               id="incident-description"
               value={description}
@@ -96,7 +108,9 @@ export default function CreateIncidentModal({
 
           <div className={styles.twoCols}>
             <div className={styles.field}>
-              <label htmlFor="incident-priority">Prioridad</label>
+              <label htmlFor="incident-priority">
+                Prioridad <span className={styles.required}>*</span>
+              </label>
               <select
                 id="incident-priority"
                 value={priority}
@@ -111,7 +125,9 @@ export default function CreateIncidentModal({
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="incident-status">Estado</label>
+              <label htmlFor="incident-status">
+                Estado <span className={styles.required}>*</span>
+              </label>
               <select
                 id="incident-status"
                 value={status}
@@ -139,7 +155,11 @@ export default function CreateIncidentModal({
             >
               Cancelar
             </button>
-            <button type="submit" className="button button-primary">
+            <button
+              type="submit"
+              className="button button-primary"
+              disabled={!isFormValid}
+            >
               Guardar
             </button>
           </div>
