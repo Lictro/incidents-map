@@ -16,6 +16,7 @@ interface Props {
     title: string;
     description: string;
     priority: "low" | "medium" | "high";
+    status: "open" | "closed" | "on_pause";
   }) => void;
 }
 
@@ -28,6 +29,7 @@ export default function CreateIncidentModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<"low" | "medium" | "high">("medium");
+  const [status, setStatus] = useState<"open" | "closed" | "on_pause">("open");
 
   if (!isOpen || !coordinates) return null;
 
@@ -38,11 +40,13 @@ export default function CreateIncidentModal({
       title,
       description,
       priority,
+      status,
     });
 
     setTitle("");
     setDescription("");
     setPriority("medium");
+    setStatus("open");
     onClose();
   };
 
@@ -90,19 +94,36 @@ export default function CreateIncidentModal({
             />
           </div>
 
-          <div className={styles.field}>
-            <label htmlFor="incident-priority">Prioridad</label>
-            <select
-              id="incident-priority"
-              value={priority}
-              onChange={(e) =>
-                setPriority(e.target.value as "low" | "medium" | "high")
-              }
-            >
-              <option value="low">Baja</option>
-              <option value="medium">Media</option>
-              <option value="high">Alta</option>
-            </select>
+          <div className={styles.twoCols}>
+            <div className={styles.field}>
+              <label htmlFor="incident-priority">Prioridad</label>
+              <select
+                id="incident-priority"
+                value={priority}
+                onChange={(e) =>
+                  setPriority(e.target.value as "low" | "medium" | "high")
+                }
+              >
+                <option value="low">Baja</option>
+                <option value="medium">Media</option>
+                <option value="high">Alta</option>
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="incident-status">Estado</label>
+              <select
+                id="incident-status"
+                value={status}
+                onChange={(e) =>
+                  setStatus(e.target.value as "open" | "closed" | "on_pause")
+                }
+              >
+                <option value="open">Abierto</option>
+                <option value="closed">Cerrado</option>
+                <option value="on_pause">En Pausa</option>
+              </select>
+            </div>
           </div>
 
           <div className={styles.coordinates}>

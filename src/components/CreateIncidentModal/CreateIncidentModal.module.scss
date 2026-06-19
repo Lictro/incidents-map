@@ -30,11 +30,24 @@
   max-height: calc(100vh - 240px);
 }
 
+/* two columns for selects (priority + status) */
+.twoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .twoCols {
+    grid-template-columns: 1fr;
+  }
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-}
+} 
 
 .headerXButton {
   cursor: pointer;

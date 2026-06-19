@@ -5,7 +5,7 @@ export interface Incident {
   description: string;
 
   priority: "low" | "medium" | "high";
-  status: "open" | "closed";
+  status: "open" | "closed" | "on_pause";
 
   coordinates: {
     lat: number;
