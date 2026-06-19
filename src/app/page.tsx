@@ -8,6 +8,7 @@ import type { Incident } from "@/types/incident";
 import incidentsData from "@/data/incidents.mock.json";
 
 import { useIncidentStore } from "@/store/incidents.store";
+import styles from "./page.module.scss";
 
 export default function Home() {
   const setIncidents = useIncidentStore((state) => state.setIncidents);
@@ -16,5 +17,9 @@ export default function Home() {
     setIncidents(incidentsData as Incident[]);
   }, [setIncidents]);
 
-  return <IncidentMap />;
+  return (
+    <main className={styles.page}>
+      <IncidentMap />
+    </main>
+  );
 }

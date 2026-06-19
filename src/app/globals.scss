@@ -1,3 +1,4 @@
+
 :root {
   --graphite: #3c3744;
   --navy-electric: #090c9b;
@@ -5,8 +6,16 @@
   --powder-blue: #b4c5e4;
   --ivory: #fbfff1;
 
-  --shadow:
-    0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 14px 40px rgba(60, 55, 68, 0.08);
+  --shadow-card: 0 10px 24px rgba(60, 55, 68, 0.08);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --text-default: #3c3744;
+  --text-muted: #656176;
+  --surface: #ffffff;
+  --surface-soft: #f9f9fb;
 }
 
 * {
@@ -15,13 +24,104 @@
   padding: 0;
 }
 
-html,
-body {
-  background: var(--ivory);
-  color: var(--graphite);
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
 
-  font-family:
-    Inter,
-    system-ui,
-    sans-serif;
+body {
+  min-height: 100vh;
+  background: var(--ivory);
+  color: var(--text-default);
+  font-family: Inter, system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: none;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(48, 102, 190, 0.32);
+  outline-offset: 3px;
+}
+
+.surface-card {
+  background: var(--surface);
+  border: 1px solid rgba(60, 55, 68, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.button {
+  padding: 9px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  transition: background 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.button-primary {
+  background: var(--navy-electric);
+  color: white;
+  font-weight: 700;
+}
+
+.button-primary:hover {
+  background: var(--smart-blue);
+}
+
+.button-secondary {
+  background: transparent;
+  border: 1px solid rgba(60, 55, 68, 0.14);
+  color: var(--graphite);
+}
+
+.button-secondary:hover {
+  background: rgba(48, 102, 190, 0.08);
+}
+
+.mapboxgl-popup-content {
+  border-radius: 16px;
+  border: 1px solid rgba(60, 55, 68, 0.08);
+  box-shadow: 0 20px 40px rgba(60, 55, 68, 0.14);
+  padding: 16px;
+}
+
+.mapboxgl-popup-tip {
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.map-popup h4 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: var(--graphite);
+}
+
+.map-popup p {
+  margin: 0 0 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.map-popup__keys {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.map-popup__keys strong {
+  color: var(--graphite);
 }

@@ -9,6 +9,7 @@ import styles from "./IncidentMap.module.scss";
 
 import { useIncidentStore } from "@/store/incidents.store";
 import CreateIncidentModal from "../CreateIncidentModal/CreateIncidentModal";
+import { PlusIcon } from "@phosphor-icons/react";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
@@ -30,21 +31,17 @@ export default function IncidentMap() {
   const markersRef = useRef<mapboxgl.Marker[]>([]);
 
   const [isCreating, setIsCreating] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [selectedCoordinates, setSelectedCoordinates] = useState<{
     lat: number;
     lng: number;
   } | null>(null);
 
   const incidents = useIncidentStore((state) => state.incidents);
-
   const addIncident = useIncidentStore((state) => state.addIncident);
 
   useEffect(() => {
-    if (!mapContainer.current) return;
-    if (mapRef.current) return;
+    if (!mapContainer.current || mapRef.current) return;
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -63,42 +60,38 @@ export default function IncidentMap() {
     if (!mapRef.current) return;
 
     markersRef.current.forEach((marker) => marker.remove());
-
     markersRef.current = [];
 
     incidents.forEach((incident) => {
       const el = document.createElement("div");
-
-      el.style.width = "14px";
-      el.style.height = "14px";
-      el.style.borderRadius = "50%";
-      el.style.cursor = "pointer";
-      el.style.backgroundColor = getMarkerColor(incident.priority);
+      el.className = styles.marker;
+      el.style.backgroundColor = getMarkerColor(
+        incident.priority
+      );
 
       const popup = new mapboxgl.Popup({
-        offset: 25,
+        offset: 24,
+        className: "incident-popup",
       }).setHTML(`
-        <div style="min-width:200px">
-          <strong>${incident.title}</strong>
-
-          <p style="margin:8px 0;">
-            ${incident.locationDescription ?? "Sin ubicación"}
-          </p>
-
-          <small>
-            Prioridad: ${incident.priority}
-          </small>
-
-          <br />
-
-          <small>
-            Estado: ${incident.status}
-          </small>
+        <div class="map-popup">
+          <h4>${incident.title}</h4>
+          <p>${incident.locationDescription ?? "Sin ubicación"}</p>
+          <div class="map-popup__keys">
+            <span>Priority</span>
+            <strong>${incident.priority}</strong>
+          </div>
+          <div class="map-popup__keys">
+            <span>Status</span>
+            <strong>${incident.status}</strong>
+          </div>
         </div>
       `);
 
       const marker = new mapboxgl.Marker(el)
-        .setLngLat([incident.coordinates.lng, incident.coordinates.lat])
+        .setLngLat([
+          incident.coordinates.lng,
+          incident.coordinates.lat,
+        ])
         .setPopup(popup)
         .addTo(mapRef.current!);
 
@@ -113,19 +106,14 @@ export default function IncidentMap() {
       if (!isCreating) return;
 
       const { lat, lng } = e.lngLat;
-
-      setSelectedCoordinates({
-        lat,
-        lng,
-      });
-
+      setSelectedCoordinates({ lat, lng });
       setIsModalOpen(true);
       setIsCreating(false);
     };
 
     mapRef.current.on("click", handleMapClick);
     mapRef.current.getCanvas().style.cursor =
-    isCreating ? "crosshair" : "";
+      isCreating ? "crosshair" : "";
 
     return () => {
       mapRef.current?.off("click", handleMapClick);
@@ -133,26 +121,40 @@ export default function IncidentMap() {
   }, [isCreating]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-      }}
-    >
-      <button
-        onClick={() => setIsCreating(true)}
-        className={styles.createButton}
-      >
-        {isCreating ? "Selecciona un punto..." : "+ Crear incidencia"}
-      </button>
+    <section className={styles.wrapper}>
+      <div className={styles.mapFrame}>
+        <div ref={mapContainer} className={styles.map} />
 
-      <div ref={mapContainer} className={styles.map} />
+        <div className={styles.overlayTopLeft}>
+          <div className={styles.legendCard}>
+            <span className={styles.legendTitle}>Prioridad</span>
+            <div className={styles.legendItems}>
+              <span className={`${styles.legendItem} ${styles.high}`}>
+                Alta
+              </span>
+              <span className={`${styles.legendItem} ${styles.medium}`}>
+                Media
+              </span>
+              <span className={`${styles.legendItem} ${styles.low}`}>
+                Baja
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={() => setIsCreating(true)}
+          className={`${styles.floatingButton} button button-primary`}
+        >
+          
+          {isCreating ? "Selecciona un punto..." : <><PlusIcon size={20} />Crear Incidencia</>}
+        </button>
+      </div>
 
       <CreateIncidentModal
         isOpen={isModalOpen}
         coordinates={selectedCoordinates}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
+        onClose={() => setIsModalOpen(false)}
         onSubmit={(data) => {
           if (!selectedCoordinates) return;
 
@@ -160,20 +162,17 @@ export default function IncidentMap() {
             title: data.title,
             description: data.description,
             priority: data.priority,
-
             status: "open",
-
             coordinates: {
               lat: selectedCoordinates.lat,
               lng: selectedCoordinates.lng,
             },
-
             locationDescription: "",
           } as any);
 
           setSelectedCoordinates(null);
         }}
       />
-    </div>
+    </section>
   );
 }

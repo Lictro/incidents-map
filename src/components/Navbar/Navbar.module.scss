@@ -1,36 +1,73 @@
-.navbar {
-  height: 72px;
 
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding: 0 24px;
-
-  background: var(--graphite);
-
-  color: white;
-
-  box-shadow: var(--shadow);
+  gap: 24px;
+  padding: 16px 28px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(60, 55, 68, 0.08);
 }
 
-.logo {
-  font-size: 1.1rem;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brandMark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--navy-electric);
+  color: white;
   font-weight: 700;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brandName {
+  font-weight: 700;
+  color: var(--graphite);
+}
+
+.brandTag {
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 .links {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 20px;
+}
 
-  a {
-    color: white;
-    text-decoration: none;
+.link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
 
-    transition: 0.2s;
+.link:hover {
+  color: var(--navy-electric);
+  background: rgba(48, 102, 190, 0.08);
+}
 
-    &:hover {
-      color: var(--powder-blue);
-    }
-  }
+.active {
+  color: var(--navy-electric);
+  background: rgba(48, 102, 190, 0.12);
 }

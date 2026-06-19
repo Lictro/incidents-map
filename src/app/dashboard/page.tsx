@@ -17,26 +17,14 @@ import styles from "./page.module.scss";
 import TopAssignees from "@/components/Dashboard/TopAssignees/TopAssignees";
 
 export default function DashboardPage() {
-  const incidents = useIncidentStore(
-    (state) => state.incidents
-  );
-
-  console.log("Incidents in Dashboard:", incidents);
+  const incidents = useIncidentStore((state) => state.incidents);
 
   const total = incidents.length;
-
-  const open = incidents.filter(
-    (i) => i.status === "open"
-  ).length;
-
-  const closed = incidents.filter(
-    (i) => i.status === "closed"
-  ).length;
+  const open = incidents.filter((i) => i.status === "open").length;
+  const closed = incidents.filter((i) => i.status === "closed").length;
 
   return (
     <main className={styles.container}>
-      <h1>Dashboard</h1>
-
       <div className={styles.stats}>
         <StatCard
           title="Total Issues"
