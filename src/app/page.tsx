@@ -1,12 +1,60 @@
 "use client";
 
-import IncidentMap from "@/components/IncidentMap/IncidentMap";
-import styles from "./page.module.scss";
+import { useIncidentStore } from "@/store/incidents.store";
 
-export default function Home() {
+import StatCard from "@/components/Dashboard/StatCard/StatCard";
+import PriorityDistribution from "@/components/Dashboard/PriorityDistribution/PriorityDistribution";
+import IssueTypes from "@/components/Dashboard/IssueTypes/IssueTypes";
+import RecentIssuesTable from "@/components/Dashboard/RecentIssuesTable/RecentIssuesTable";
+
+import {
+  calculateApprovalRate,
+  calculateAverageResolutionDays,
+  calculateOverdue,
+} from "@/lib/dashboard";
+
+import styles from "./page.module.scss";
+import TopAssignees from "@/components/Dashboard/TopAssignees/TopAssignees";
+
+export default function DashboardPage() {
+  const incidents = useIncidentStore((s) => s.incidents);
+
+  const total = incidents.length;
+  const open = incidents.filter((i) => i.status === "open").length;
+  const closed = incidents.filter((i) => i.status === "closed").length;
+
   return (
-    <main className={styles.page}>
-      <IncidentMap />
+    <main className={styles.container}>
+      <div className={styles.stats}>
+        <StatCard title="Incidencias Totales" value={total} />
+
+        <StatCard title="Incidencias Abiertas" value={open} />
+
+        <StatCard title="Incidencias Cerradas" value={closed} />
+
+        <StatCard
+          title="Tasa de Aprobación"
+          value={`${calculateApprovalRate(incidents)}%`}
+        />
+
+        <StatCard
+          title="Tiempo Promedio de Resolución"
+          value={`${calculateAverageResolutionDays(incidents)} días`}
+        />
+
+        <StatCard
+          title="Incidencias Atrasadas"
+          value={calculateOverdue(incidents)}
+        />
+      </div>
+
+      <div className={styles.grid}>
+        <PriorityDistribution incidents={incidents} />
+
+        <TopAssignees incidents={incidents} />
+      </div>
+
+      <RecentIssuesTable incidents={incidents} />
     </main>
   );
 }

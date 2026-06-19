@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.scss";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/", label: "Mapa" },
+  { href: "/", label: "Dashboard" },
+  { href: "/incidents", label: "Incidentes" },
 ];
 
 export default function Navbar() {
