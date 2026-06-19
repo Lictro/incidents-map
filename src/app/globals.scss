@@ -47,11 +47,6 @@ button {
   border: none;
 }
 
-:focus-visible {
-  outline: 3px solid rgba(48, 102, 190, 0.32);
-  outline-offset: 3px;
-}
-
 .surface-card {
   background: var(--surface);
   border: 1px solid rgba(60, 55, 68, 0.08);
@@ -99,12 +94,47 @@ button {
   padding: 16px;
 }
 
+/* Fixed popup sizing: keeps popups consistent on desktop and usable on mobile */
+.mapboxgl-popup-content {
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  max-height: 240px;
+  overflow: auto;
+}
+
+/* Custom close button for popups */
+.mapboxgl-popup-close-button {
+  font-size: 18px;
+  color: var(--graphite);
+  background: transparent;
+  border: none;
+
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  opacity: 0.6;
+
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 1;
+    color: var(--navy-electric);
+  }
+}
+
 .mapboxgl-popup-tip {
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
 }
 
 .map-popup h4 {
   margin: 0 0 10px;
+  padding-right: 15px;
   font-size: 1rem;
   color: var(--graphite);
 }
