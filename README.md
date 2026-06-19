@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Incidents Map
 
-## Getting Started
+This project was developed as part of a technical challenge to recreate an incident management app.
 
-First, run the development server:
+The application allows users to:
+
+- Visualize incidents on an interactive Mapbox map
+- Create new incidents directly from the map
+- Manage incident information including priority, description, location, and due dates
+- View project insights through a dashboard with key metrics and statistics
+- Track incident status, approvals, assignments, and resolution performance
+
+Environment
+- Create `.env.local` with your Mapbox token:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.<your_token_here>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run
+- `npm run dev` — development server
+- `npm run build` — production build
+- `npm start` — run production
+- `npx tsc --noEmit` — type check
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Project layout (key paths)
+- `app/` — Next.js App Router routes and layout
+- `src/components/IncidentMap` — Mapbox map and markers
+- `src/components/CreateIncidentModal` — incident creation form
+- `src/components/Dashboard` — dashboard widgets
+- `src/data/incidents.mock.json` — seed data
+- `src/store/incidents.store.ts` — zustand store
+- `src/types/incident.ts` — `Incident` type
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Notes
+- Priority values used in the app are Spanish: `baja | media | alta`.
+- CSS Modules: wrap global element selectors with `:global()` to avoid Turbopack/Next errors.
+- Mapbox: ensure the map container has an explicit height for correct rendering.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+That's it — run `npm run dev` to start developing.
