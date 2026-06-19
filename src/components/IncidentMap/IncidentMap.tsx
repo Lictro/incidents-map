@@ -166,6 +166,8 @@ export default function IncidentMap() {
               lng: selectedCoordinates.lng,
             },
             locationDescription: "",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
           } as any);
 
           setSelectedCoordinates(null);

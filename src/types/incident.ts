@@ -5,7 +5,6 @@ export interface Incident {
   description: string;
 
   priority: "low" | "medium" | "high";
-
   status: "open" | "closed";
 
   coordinates: {
@@ -14,4 +13,6 @@ export interface Incident {
   };
 
   locationDescription: string;
+  createdAt: string;
+  updatedAt: string;
 }
